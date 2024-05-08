@@ -8,6 +8,8 @@ function TodoPage() {
   const { user, setUser } = useContext(AuthContext);
   const [todoList, setTodoList] = useState([]);
   const [newTodoText, setNewTodoText] = useState("");
+  const [submitStatus, setSubmitStatus] = useState(false);
+  const [validateStatus, setValidateStatus] = useState(true);
   const userId = user.user.id;
   const navigate = useNavigate();
   useEffect(() => {
@@ -31,7 +33,9 @@ function TodoPage() {
   };
   const handleInputNewTodoText = (event) => {
     setNewTodoText(event.target.value);
+    setSubmitStatus(false);
   };
+
   const submitNewTodo = async () => {
     try {
       console.log("trying to create post");
@@ -39,12 +43,21 @@ function TodoPage() {
       const response = await todoAPI.createTodo(todoData, userId);
       console.log("get alltodo status", response.data.status);
       let newTodoItem = response.data.data;
-      /// set new todo list with ค่าที่เพิ่งโพสต์ไป
       let newTodoList = [newTodoItem, ...todoList];
       setTodoList(newTodoList);
-      console.log(todoList);
     } catch (err) {
       console.log(err);
+    }
+  };
+  const handleSubmitTodo = (event) => {
+    setSubmitStatus((prev) => true);
+    if (newTodoText === "") {
+      setValidateStatus(false);
+      console.log("validation status", validateStatus);
+      return;
+    } else {
+      submitNewTodo();
+      setSubmitStatus(false);
     }
   };
   const deleteTodo = async (todoId, userId, todoTitle) => {
@@ -88,13 +101,22 @@ function TodoPage() {
     <div className="todoPage">
       <div className="myTodo">My Todo</div>
       <div className="addTodo">
-        <button onClick={submitNewTodo} className="addTodo__addBtn">
+        <button onClick={handleSubmitTodo} className="addTodo__addBtn">
           New task
         </button>
+        {submitStatus === true && validateStatus === false ? (
+          <div className="addTodo__errormessage">
+            please input your new task
+          </div>
+        ) : null}
         <input
           value={newTodoText}
           onChange={handleInputNewTodoText}
-          className="addTodo__input"
+          className={
+            submitStatus === true && validateStatus === false
+              ? "addTodo__input--empty"
+              : "addTodo__input"
+          }
           type="text"
           placeholder="write your new task"
         />
