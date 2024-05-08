@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import TodoItem from "../components/TodoItem";
 import * as todoAPI from "../apis/todoApi";
+import { AuthContext } from "../context/AuthContext";
 
 function TodoPage() {
+  const { user, setUser } = useContext(AuthContext);
   const [todoList, setTodoList] = useState([]);
   const [newTodoText, setNewTodoText] = useState("");
-  /// เดี๋ยวเอา user มาจาก AuthContext อีกที ตอนนี้ hard code ไปก่อน
-  const userId = 13;
+  const userId = user.user.id;
+  const navigate = useNavigate();
   useEffect(() => {
     // ต้องเอา user ID มาจาก user ใน AuthContext อีกที แต่ mock ไปก่อน คือ 13
+    console.log("userId", userId);
     getAllTodoOfUser(userId);
   }, []);
-
+  const handleLogout = () => {
+    setUser("");
+    navigate("/login");
+  };
   const getAllTodoOfUser = async (userId) => {
     try {
       const response = await todoAPI.getAllTodo(userId);
@@ -63,7 +70,7 @@ function TodoPage() {
       console.log("trying to update post:", todoId);
       let todoData = { title: todoTitle, status: status };
       const response = await todoAPI.updateTodo(todoId, userId, todoData);
-      let newTodo = response.data;
+      let newTodo = response.data.data;
       if (response?.data !== null) {
         let foundedIndex = todoList.findIndex((todo) => todo.id === todoId);
         if (foundedIndex != -1) {
@@ -79,7 +86,7 @@ function TodoPage() {
 
   return (
     <div className="todoPage">
-      <div>My Todo</div>
+      <div className="header">My Todo</div>
       <div className="addTodo">
         <button onClick={submitNewTodo} className="addTodo__addBtn">
           Add new task
@@ -107,6 +114,9 @@ function TodoPage() {
           />
         ))}
       </div>
+      <button onClick={handleLogout} className="logoutBtn">
+        LOG OUT
+      </button>
     </div>
   );
 }

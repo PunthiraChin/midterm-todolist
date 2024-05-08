@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../apis/authApi";
+import { AuthContext } from "../context/AuthContext";
 
 export default function LoginPage() {
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [emailOrMobile, setEmailOrMobile] = useState("");
   const [password, setPassword] = useState("");
-  /// เดี๋ยวเอาไปไว้ที่ context API
-  const [user, setUser] = useState(null);
   const handleInputEmailOrMobile = (event) => {
     setEmailOrMobile(event.target.value);
   };
@@ -19,15 +19,16 @@ export default function LoginPage() {
     let loginData = { email: emailOrMobile, password: password };
     // let response = await login(loginData)
     let response = await loginApi(loginData);
-    console.log(response.data);
-    setUser(response.data);
+    // console.log(response.data);
+    await setUser(response.data);
+    // console.log(user);
     navigate("/");
   };
 
   return (
     <div className="login-page">
-      <div>Welcome</div>
-      <form>
+      <div className="header">Welcome</div>
+      <form onSubmit={handleSubmitLogin} className="loginform">
         <label htmlFor="emailOrMobile">emailOfMobile</label>
         <input
           type="text"
@@ -44,9 +45,7 @@ export default function LoginPage() {
           value={password}
           onChange={handleInputPassword}
         />
-        <button type="submit" onClick={handleSubmitLogin}>
-          LOG IN
-        </button>
+        <button type="submit">LOG IN</button>
       </form>
     </div>
   );
