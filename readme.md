@@ -1,5 +1,17 @@
 # React Assessment : My Todo / Movie List (CC17)
 
+{
+"user": {
+"id": 13,
+"email": "punthirachi@mail.com",
+"name": "punthira",
+"number": 32
+},
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImlhdCI6MTcxNTE0MTA1OSwiZXhwIjoxNzE1MjI3NDU5fQ.c9pXt4BYmI7z6UOZcJwbwLmuteaFUfDUPN7VX7K9F8s",
+"status": "success",
+"message": "User registered successfully"
+}
+
 ### Overview
 
 Please follow these conditions before code!
@@ -49,7 +61,7 @@ Please follow these conditions before code!
 // You can use this function for getMe
 async function getMe() {
   let token; // get token from somewhere
-  const res = await fetch('base_url/auth/me', {
+  const res = await fetch("base_url/auth/me", {
     headers: {
       Authorization: `Bearer ${token}`, // put your token here
     },
