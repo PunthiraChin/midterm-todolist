@@ -67,6 +67,44 @@ button:focus-visible {
   }
 }
 
+.todoPage {
+  width: 400px;
+  border: 1px solid white;
+  padding: 24px;
+}
+.addTodo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.addTodo__addBtn {
+  padding: 0;
+}
+.addTodo__input {
+  width: 100%;
+  height: 24px;
+  border: none;
+}
+
+.todoList {
+  border: 1px solid white;
+}
 .todoitem {
   display: flex;
+  width: 100%;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+.todoitem__checkbox {
+}
+.todoitem__name {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.todoitem__delBtn {
+  width: 40px;
 }
