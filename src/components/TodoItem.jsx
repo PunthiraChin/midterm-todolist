@@ -12,6 +12,7 @@ function TodoItem({
 }) {
   const [isEdit, setIsEdit] = useState(false);
   const [todoEditText, setTodoEditText] = useState(title);
+  const [isChecked, setIsChecked] = useState(false);
   const handleClickEdit = (event) => {
     setIsEdit(!isEdit);
   };
@@ -21,13 +22,20 @@ function TodoItem({
   const handleUpdateTodo = async () => {
     // Handle edit function โดยเอาค่า todoEditText ไปส่ง
     console.log("Update is requested");
-    let response = await updateTodo(todoId, userId, title);
-    console.log(res);
+    await updateTodo(todoId, userId, todoEditText, isChecked);
     setIsEdit(!isEdit);
+  };
+  const handleCheckBox = async (event) => {
+    setIsChecked((prev) => event.target.checked);
+    await updateTodo(todoId, userId, todoEditText, isChecked);
   };
   return (
     <div className="todoitem">
-      <input type="checkbox" className="todoitem__checkbox"></input>
+      <input
+        onChange={handleCheckBox}
+        type="checkbox"
+        className="todoitem__checkbox"
+      ></input>
       {isEdit ? (
         <div>
           <input
@@ -40,7 +48,10 @@ function TodoItem({
           <button onClick={handleUpdateTodo}>save</button>
         </div>
       ) : (
-        <div onClick={handleClickEdit} className="todoitem__name">
+        <div
+          onClick={handleClickEdit}
+          className={isChecked ? "todoItem__name-checked" : "todoItem__name"}
+        >
           {title}
         </div>
       )}

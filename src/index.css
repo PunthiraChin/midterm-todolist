@@ -104,6 +104,9 @@ button:focus-visible {
   display: flex;
   flex-direction: row;
 }
+.todoItem__name-checked {
+  text-decoration: line-through;
+}
 
 .todoitem__delBtn {
   width: 40px;

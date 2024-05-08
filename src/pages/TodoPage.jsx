@@ -58,13 +58,12 @@ function TodoPage() {
       console.log(err);
     }
   };
-  const updateTodo = async (todoId, userId, todoTitle) => {
+  const updateTodoItem = async (todoId, userId, todoTitle, status) => {
     try {
-      console.log("trying to update post");
-      let todoData = { title: todoTitle, status: true };
-      const response = await updateTodo(todoId, userId, todoData);
+      console.log("trying to update post:", todoId);
+      let todoData = { title: todoTitle, status: status };
+      const response = await todoAPI.updateTodo(todoId, userId, todoData);
       let newTodo = response.data;
-      console.log(newTodo);
       if (response?.data !== null) {
         let foundedIndex = todoList.findIndex((todo) => todo.id === todoId);
         if (foundedIndex != -1) {
@@ -73,12 +72,10 @@ function TodoPage() {
           setTodoList(newTodoList);
         }
       }
-      // find index ก่อน แล้วค่อย update data
     } catch (err) {
       console.log(err);
     }
   };
-  // Delete todo from the list >> ต้องส่ง function เข้าไปข้างใน
 
   return (
     <div className="todoPage">
@@ -106,7 +103,7 @@ function TodoPage() {
             todoList={todoList}
             setTodoList={setTodoList}
             deleteTodo={deleteTodo}
-            updateTodo={updateTodo}
+            updateTodo={updateTodoItem}
           />
         ))}
       </div>
