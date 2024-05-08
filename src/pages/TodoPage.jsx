@@ -86,10 +86,10 @@ function TodoPage() {
 
   return (
     <div className="todoPage">
-      <div className="header">My Todo</div>
+      <div className="myTodo">My Todo</div>
       <div className="addTodo">
         <button onClick={submitNewTodo} className="addTodo__addBtn">
-          Add new task
+          New task
         </button>
         <input
           value={newTodoText}

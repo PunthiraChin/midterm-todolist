@@ -104,29 +104,34 @@ button:focus-visible {
 .loginform > button {
   border-radius: 16px;
   margin-top: 48px;
+  padding-block: 16px;
   background-color: #292930;
 }
-
+/* ===================== */
 .todoPage {
   width: 400px;
-  min-height: 600px;
+  height: 600px;
   padding: 48px;
   display: flex;
   flex-direction: column;
   background-color: #1e1f26;
-  gap: 24px;
+  gap: 16px;
+}
+.myTodo {
+  font-size: 64px;
+  font-weight: 600;
 }
 .addTodo {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 8px;
+  gap: 16px;
   align-items: flex-start;
 }
 .addTodo__addBtn {
-  border-radius: 16px;
-  margin-top: 48px;
-  background-color: #292930;
+  padding: 0px;
+  background-color: #1e1f26;
+  color: #9494b8;
+  font-weight: 600;
 }
 .addTodo__input {
   width: 100%;
@@ -137,8 +142,8 @@ button:focus-visible {
 }
 
 .todoList {
-  flex-grow: 1;
-  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
 }
 .todoitem {
   display: flex;
@@ -147,17 +152,25 @@ button:focus-visible {
   justify-content: space-between;
   align-items: center;
 }
-/* .todoitem__checkbox {
-} */
+
 .todoitem__name {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
 }
 .todoItem__name-checked {
+  flex-grow: 1;
   text-decoration: line-through;
 }
 
 .todoitem__delBtn {
-  width: 40px;
+  background-color: #1e1f26;
+  width: 20px;
+}
+.logoutBtn {
+  border-radius: 16px;
+  margin-top: 48px;
+  padding-block: 16px;
+  background-color: #292930;
 }
