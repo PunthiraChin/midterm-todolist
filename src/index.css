@@ -147,7 +147,7 @@ button:focus-visible {
   background-color: #1e1f26;
   border: 1px solid red;
 }
-.addTodo__errormessage {
+.errormessage {
   color: red;
 }
 

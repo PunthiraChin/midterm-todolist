@@ -105,9 +105,7 @@ function TodoPage() {
           New task
         </button>
         {submitStatus === true && validateStatus === false ? (
-          <div className="addTodo__errormessage">
-            please input your new task
-          </div>
+          <div className="errormessage">please input your new task</div>
         ) : null}
         <input
           value={newTodoText}
